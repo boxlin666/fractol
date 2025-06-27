@@ -1,4 +1,4 @@
-#include"fractol.h"
+#include "fractol.h"
 
 void render_mandelbrot(t_data *img)
 {
@@ -6,7 +6,6 @@ void render_mandelbrot(t_data *img)
     {
         for (int x = 0; x < WIDTH; x++)
         {
-            // 把像素坐标映射到复平面
             double re = (x - WIDTH / 2.0) / (0.5 * img->zoom * WIDTH) + img->offset_x;
             double im = (y - HEIGHT / 2.0) / (0.5 * img->zoom * HEIGHT) + img->offset_y;
 
@@ -21,7 +20,7 @@ void render_mandelbrot(t_data *img)
                 iter++;
             }
 
-            int color = iter == MAX_ITER ? 0x000000 : (iter * 255 / MAX_ITER) << 16;
+            int color = get_shifted_color(iter, MAX_ITER, 0.2);
             my_mlx_pixel_put(img, x, y, color);
         }
     }

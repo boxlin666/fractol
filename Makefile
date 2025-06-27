@@ -10,7 +10,7 @@ CFLAGS      = -Wall -Wextra -Werror
 
 MLX_DIR     = minilibx-linux
 MLX_LIB     = $(MLX_DIR)/libmlx.a
-MLX_INC     = -I $(MLX_DIR)
+MLX_INC     = -I $(MLX_DIR) -lm
 MLX_LDFLAGS = -L $(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 # **************************************************************************** #
