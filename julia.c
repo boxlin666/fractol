@@ -1,28 +1,43 @@
 #include"fractol.h"
 
-void render_julia(t_data *img)
+int	julia_iterations(double zr, double zi, double cr, double ci)
 {
-    double cr = -0.8;
-    double ci = 0.156;
+	double	tmp;
+	int		iter = 0;
 
-    for (int y = 0; y < HEIGHT; y++)
-    {
-        for (int x = 0; x < WIDTH; x++)
-        {
-            double zr = scale(x, 0, WIDTH, -2.0, 2.0);
-            double zi = scale(y, 0, HEIGHT, 2.0, -2.0);
+	while (zr * zr + zi * zi <= 4.0 && iter < MAX_ITER)
+	{
+		tmp = zr * zr - zi * zi + cr;
+		zi = 2.0 * zr * zi + ci;
+		zr = tmp;
+		iter++;
+	}
+	return (iter);
+}
 
-            int iter = 0;
-            while (zr * zr + zi * zi <= 4.0 && iter < MAX_ITER)
-            {
-                double tmp = zr * zr - zi * zi + cr;
-                zi = 2.0 * zr * zi + ci;
-                zr = tmp;
-                iter++;
-            }
+void	compute_and_draw_julia(t_data *img, int x, int y, double cr, double ci)
+{
+	double	zr = (x - WIDTH / 2.0) / (0.5 * img->zoom * WIDTH) + img->offset_x;
+	double	zi = (y - HEIGHT / 2.0) / (0.5 * img->zoom * HEIGHT) + img->offset_y;
+	int		iter = julia_iterations(zr, zi, cr, ci);
+	int		color = get_shifted_color(iter, MAX_ITER, 0.2);
 
-            int color = (iter == MAX_ITER) ? 0x000000 : (iter * 255 / MAX_ITER) << 16;
-            my_mlx_pixel_put(img, x, y, color);
-        }
-    }
+	my_mlx_pixel_put(img, x, y, color);
+}
+
+void	render_julia(t_data *img, double cr, double ci)
+{
+	int	x = 0;
+	int	y = 0;
+
+	while (y < HEIGHT)
+	{
+		while (x < WIDTH)
+		{
+			compute_and_draw_julia(img, x, y, cr, ci);
+			x++;
+		}
+		x = 0;
+		y++;
+	}
 }
