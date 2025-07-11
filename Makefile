@@ -2,16 +2,24 @@
 #                               MAKEFILE CONFIG                                #
 # **************************************************************************** #
 
-NAME        = mlx_window
-SRC         = mlx_window.c utils.c mandelbrot.c
+NAME        = fractol
+SRC_DIR    := src
+SRC         = $(addprefix $(SRC_DIR)/, main.c init_data.c mlx_window.c utils.c mandelbrot.c julia.c tricorn.c)
 OBJ         = $(SRC:.c=.o)
 CC          = gcc
-CFLAGS      = -Wall -Wextra -Werror
+CFLAGS      = -Wall -Wextra -Werror -Ilibft -Imlx -Iinclude
 
-MLX_DIR     = minilibx-linux
+# MinilibX config
+MLX_DIR     = mlx
 MLX_LIB     = $(MLX_DIR)/libmlx.a
-MLX_INC     = -I $(MLX_DIR) -lm
-MLX_LDFLAGS = -L $(MLX_DIR) -lmlx -lXext -lX11 -lm
+MLX_INC     = -I $(MLX_DIR)
+MLX_FLAGS   = -L $(MLX_DIR) -lmlx -lXext -lX11 -lm
+
+# libft config
+LIBFT_DIR     = libft
+LIBFT_LIB     = $(LIBFT_DIR)/libft.a
+LIBFT_INC     = -I $(LIBFT_DIR)
+LIBFT_FLAGS   = -L $(LIBFT_DIR) -lft
 
 # **************************************************************************** #
 #                                    RULES                                     #
@@ -19,19 +27,25 @@ MLX_LDFLAGS = -L $(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 all: $(NAME)
 
-$(MLX_LIB):
-	@$(MAKE) -C $(MLX_DIR)
+$(LIBFT_LIB):
+	$(MAKE) -C $(LIBFT_DIR)
 
-$(NAME): $(OBJ) $(MLX_LIB)
-	$(CC) $(CFLAGS) $(OBJ) $(MLX_INC) $(MLX_LDFLAGS) -o $(NAME)
+$(MLX_LIB):
+	$(MAKE) -C $(MLX_DIR)
+
+$(NAME): $(OBJ) $(MLX_LIB) $(LIBFT_LIB)
+	$(CC) $(CFLAGS) $(OBJ) $(MLX_INC) $(LIBFT_INC) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(NAME)
 
 clean:
-	@rm -f $(OBJ)
-	@$(MAKE) -C $(MLX_DIR) clean
+	rm -f $(OBJ)
+	$(MAKE) -C $(MLX_DIR) clean
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
-	@rm -f $(NAME)
+	rm -f $(NAME)
+	$(MAKE) -C $(LIBFT_DIR) fclean
+
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re $(NAME)
