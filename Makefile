@@ -4,7 +4,7 @@
 
 NAME        = fractol
 SRC_DIR    := src
-SRC         = $(addprefix $(SRC_DIR)/, main.c init_data.c mlx_window.c utils.c mandelbrot.c julia.c tricorn.c)
+SRC         = $(addprefix $(SRC_DIR)/, main.c init_data.c mlx_window.c utils.c mandelbrot.c julia.c tricorn.c ft_lib.c)
 OBJ         = $(SRC:.c=.o)
 CC          = gcc
 CFLAGS      = -Wall -Wextra -Werror -Ilibft -Imlx -Iinclude

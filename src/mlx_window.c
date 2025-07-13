@@ -6,7 +6,7 @@
 /*   By: helin <helin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 22:12:00 by helin             #+#    #+#             */
-/*   Updated: 2025/07/11 22:36:52 by helin            ###   ########.fr       */
+/*   Updated: 2025/07/13 17:12:23 by helin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ int	key_hook(int keycode, t_data *img)
 		img->zoom *= 1.2;
 	else if (keycode == 65453)
 		img->zoom /= 1.2;
-	render_mandelbrot(img);
-	mlx_put_image_to_window(img->mlx, img->win, img->img, 0, 0);
+	else
+		return (0);
+	img->need_redraw = 1;
 	return (0);
 }
 

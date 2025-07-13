@@ -6,7 +6,7 @@
 /*   By: helin <helin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 22:11:44 by helin             #+#    #+#             */
-/*   Updated: 2025/07/11 22:39:54 by helin            ###   ########.fr       */
+/*   Updated: 2025/07/13 17:53:31 by helin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	render_frame(t_data *img)
 
 int	close_window(t_data *img)
 {
+	mlx_destroy_image(img->mlx, img->img);
 	mlx_destroy_window(img->mlx, img->win);
 	exit(0);
 	return (0);
@@ -52,7 +53,7 @@ int	close_window(t_data *img)
 
 int	main(int argc, char **argv)
 {
-	t_data img;
+	t_data	img;
 
 	if (argc < 2)
 	{
@@ -60,6 +61,7 @@ int	main(int argc, char **argv)
 			2);
 		return (1);
 	}
+	ft_memset(&img, 0, sizeof(t_data));
 	if (!init_data(&img, argc, argv))
 		return (1);
 	init_mlx(&img);

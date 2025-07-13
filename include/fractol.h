@@ -6,7 +6,7 @@
 /*   By: helin <helin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:28:33 by helin             #+#    #+#             */
-/*   Updated: 2025/07/11 22:34:42 by helin            ###   ########.fr       */
+/*   Updated: 2025/07/13 17:59:48 by helin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,19 @@ typedef struct s_data
 	int		fractal_type;
 }			t_data;
 
+typedef struct s_range
+{
+	double	min;
+	double	max;
+}			t_range;
+
+typedef struct s_rgb
+{
+	int		r;
+	int		g;
+	int		b;
+}			t_rgb;
+
 int			init_data(t_data *img, int argc, char **argv);
 int			key_hook(int keycode, t_data *img);
 int			mouse_hook(int button, int x, int y, t_data *img);
@@ -50,16 +63,17 @@ int			mouse_press(int button, int x, int y, t_data *img);
 int			mouse_release(int button, int x, int y, t_data *img);
 int			mouse_move(int x, int y, t_data *img);
 
+int			render_frame(t_data *img);
 void		render_mandelbrot(t_data *img);
 void		render_julia(t_data *img);
 void		render_tricorn(t_data *img);
 
-double		scale(double value, double min_screen, double max_screen,
-				double min_complex, double max_complex);
+double		map(int value, t_range src, t_range dst);
+double		scale(double value, t_range screen, t_range complex);
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int			get_color(int iter, int max_iter);
-int			get_psychedelic_color(int iter, int max_iter);
+t_rgb		hsv_to_rgb(double h, double s, double v);
 int			get_shifted_color(int iter, int max_iter, int shift);
 int			get_smooth_color(int iter, int max_iter);
-
+double	ft_atof(const char *str);
 #endif
