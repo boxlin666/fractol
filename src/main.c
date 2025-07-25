@@ -6,7 +6,7 @@
 /*   By: helin <helin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 22:11:44 by helin             #+#    #+#             */
-/*   Updated: 2025/07/13 17:53:31 by helin            ###   ########.fr       */
+/*   Updated: 2025/07/25 13:19:39 by helin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	init_mlx(t_data *img)
 	img->img = mlx_new_image(img->mlx, WIDTH, HEIGHT);
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->line_len,
 			&img->endian);
+	img->color_shift = 0;
 }
 
 int	render_frame(t_data *img)
@@ -40,6 +41,7 @@ int	render_frame(t_data *img)
 		render_tricorn(img);
 	mlx_put_image_to_window(img->mlx, img->win, img->img, 0, 0);
 	img->need_redraw = 0;
+	img->color_shift += 1;
 	return (0);
 }
 

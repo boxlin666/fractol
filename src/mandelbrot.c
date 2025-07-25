@@ -6,7 +6,7 @@
 /*   By: helin <helin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 18:43:28 by helin             #+#    #+#             */
-/*   Updated: 2025/07/13 17:25:05 by helin            ###   ########.fr       */
+/*   Updated: 2025/07/25 13:28:15 by helin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	compute_and_draw_pixel(t_data *img, int x, int y)
 	re = (x - WIDTH / 2.0) / (0.5 * img->zoom * WIDTH) + img->offset_x;
 	im = (y - HEIGHT / 2.0) / (0.5 * img->zoom * HEIGHT) + img->offset_y;
 	iter = mandelbrot_iterations(re, im);
-	color = get_shifted_color(iter, MAX_ITER, 0.2);
+	color = get_shifted_color(iter, MAX_ITER, img->color_shift);
 	my_mlx_pixel_put(img, x, y, color);
 }
 

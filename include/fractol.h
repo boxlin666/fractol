@@ -6,7 +6,7 @@
 /*   By: helin <helin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:28:33 by helin             #+#    #+#             */
-/*   Updated: 2025/07/13 17:59:48 by helin            ###   ########.fr       */
+/*   Updated: 2025/07/25 13:16:16 by helin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,14 @@
 # define FRACTAL_MANDELBROT 1
 # define FRACTAL_JULIA 2
 # define FRACTAL_TRICORN 3
+# define DEFAULT_CR -0.8
+# define DEFAULT_CI 0.156
 
+/* 
+./fractol julia -cre 0.355 -cim 0.355 -iter 3000
+./fractol julia -cre -0.7 -cim 0.27015 -iter 3000
+./fractol julia -cre 0.285 -cim 0
+*/
 typedef struct s_data
 {
 	void	*mlx;
@@ -41,6 +48,9 @@ typedef struct s_data
 	int		last_y;
 	int		need_redraw;
 	int		fractal_type;
+	int		color_shift;
+	double	c_re;
+	double	c_im;
 }			t_data;
 
 typedef struct s_range
@@ -75,5 +85,5 @@ int			get_color(int iter, int max_iter);
 t_rgb		hsv_to_rgb(double h, double s, double v);
 int			get_shifted_color(int iter, int max_iter, int shift);
 int			get_smooth_color(int iter, int max_iter);
-double	ft_atof(const char *str);
+double		ft_atof(const char *str);
 #endif

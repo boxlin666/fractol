@@ -6,7 +6,7 @@
 /*   By: helin <helin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 17:33:03 by helin             #+#    #+#             */
-/*   Updated: 2025/07/11 22:09:29 by helin            ###   ########.fr       */
+/*   Updated: 2025/07/25 13:28:32 by helin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	compute_and_draw_tricorn(t_data *img, int x, int y)
 	cr = (x - WIDTH / 2.0) / (0.5 * img->zoom * WIDTH) + img->offset_x;
 	ci = (y - HEIGHT / 2.0) / (0.5 * img->zoom * HEIGHT) + img->offset_y;
 	iter = tricorn_iterations(cr, ci);
-	color = get_shifted_color(iter, img->max_iter, 3);
+	color = get_shifted_color(iter, img->max_iter, img->color_shift);
 	my_mlx_pixel_put(img, x, y, color);
 }
 

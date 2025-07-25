@@ -6,14 +6,11 @@
 /*   By: helin <helin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 22:22:03 by helin             #+#    #+#             */
-/*   Updated: 2025/07/11 22:35:44 by helin            ###   ########.fr       */
+/*   Updated: 2025/07/25 13:18:36 by helin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-#define DEFAULT_CR -0.8
-#define DEFAULT_CI 0.156
 
 int	julia_iterations(double zr, double zi, double cr, double ci)
 {
@@ -40,8 +37,8 @@ void	compute_and_draw_julia(t_data *img, int x, int y)
 
 	zr = (x - WIDTH / 2.0) / (0.5 * img->zoom * WIDTH) + img->offset_x;
 	zi = (y - HEIGHT / 2.0) / (0.5 * img->zoom * HEIGHT) + img->offset_y;
-	iter = julia_iterations(zr, zi, DEFAULT_CR, DEFAULT_CI);
-	color = get_shifted_color(iter, MAX_ITER, 0.2);
+	iter = julia_iterations(zr, zi, img->c_re, img->c_im);
+	color = get_shifted_color(iter, MAX_ITER, img->color_shift);
 	my_mlx_pixel_put(img, x, y, color);
 }
 
