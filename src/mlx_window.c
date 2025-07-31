@@ -6,7 +6,7 @@
 /*   By: helin <helin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 22:12:00 by helin             #+#    #+#             */
-/*   Updated: 2025/07/13 17:12:23 by helin            ###   ########.fr       */
+/*   Updated: 2025/07/30 16:55:25 by helin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	key_hook(int keycode, t_data *img)
 {
 	if (keycode == 65307)
 	{
-		mlx_destroy_window(img->mlx, img->win);
+		close_window(img);
 		exit(0);
 	}
 	else if (keycode == 65362)
@@ -42,33 +42,6 @@ int	key_hook(int keycode, t_data *img)
 	return (0);
 }
 
-int	mouse_hook(int button, int x, int y, t_data *img)
-{
-	double	zoom_factor;
-	double	mouse_re;
-	double	mouse_im;
-
-	if (button == 4 || button == 5)
-	{
-		if (button == 4)
-			zoom_factor = 1.2;
-		else
-			zoom_factor = 1 / 1.2;
-		mouse_re = (x - WIDTH / 2.0) / (0.5 * img->zoom * WIDTH)
-			+ img->offset_x;
-		mouse_im = (y - HEIGHT / 2.0) / (0.5 * img->zoom * HEIGHT)
-			+ img->offset_y;
-		img->zoom *= zoom_factor;
-		img->offset_x = mouse_re - (x - WIDTH / 2.0) / (0.5 * img->zoom
-				* WIDTH);
-		img->offset_y = mouse_im - (y - HEIGHT / 2.0) / (0.5 * img->zoom
-				* HEIGHT);
-		render_mandelbrot(img);
-		mlx_put_image_to_window(img->mlx, img->win, img->img, 0, 0);
-	}
-	return (0);
-}
-
 int	mouse_press(int button, int x, int y, t_data *img)
 {
 	double	mouse_re;
@@ -86,9 +59,9 @@ int	mouse_press(int button, int x, int y, t_data *img)
 		mouse_im = (double)y / HEIGHT * 3.0 - 1.5;
 		mouse_re = mouse_re / img->zoom + img->offset_x;
 		mouse_im = mouse_im / img->zoom + img->offset_y;
-		if (button == 4)
+		if (button == 5)
 			img->zoom *= ZOOM_FACTOR;
-		else if (button == 5)
+		else if (button == 4)
 			img->zoom /= ZOOM_FACTOR;
 		img->offset_x = mouse_re - ((double)x / WIDTH * 3.0 - 2.0) / img->zoom;
 		img->offset_y = mouse_im - ((double)y / HEIGHT * 3.0 - 1.5) / img->zoom;

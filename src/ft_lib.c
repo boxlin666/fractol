@@ -6,9 +6,21 @@
 /*   By: helin <helin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 22:12:52 by helin             #+#    #+#             */
-/*   Updated: 2025/07/14 14:35:41 by helin            ###   ########.fr       */
+/*   Updated: 2025/07/30 17:10:19 by helin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
+}
 
 static double	parse_fraction(const char *str, int *i)
 {

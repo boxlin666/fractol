@@ -6,7 +6,7 @@
 /*   By: helin <helin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:28:33 by helin             #+#    #+#             */
-/*   Updated: 2025/07/25 13:16:16 by helin            ###   ########.fr       */
+/*   Updated: 2025/07/31 19:17:46 by helin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 # define FRACTOL_H
 
 # define WIDTH 800
-# define HEIGHT 600
+# define HEIGHT 700
 # define MAX_ITER 100
 # define KEY_ESC 65307
-# define ZOOM_FACTOR 1.1
+# define ZOOM_FACTOR 0.7
 # define FRACTAL_MANDELBROT 1
 # define FRACTAL_JULIA 2
 # define FRACTAL_TRICORN 3
 # define DEFAULT_CR -0.8
 # define DEFAULT_CI 0.156
 
-/* 
-./fractol julia -cre 0.355 -cim 0.355 -iter 3000
-./fractol julia -cre -0.7 -cim 0.27015 -iter 3000
+/*
+./fractol julia -cre 0.355 -cim 0.355 
+./fractol julia -cre -0.7 -cim 0.27015 
 ./fractol julia -cre 0.285 -cim 0
 */
 typedef struct s_data
@@ -72,12 +72,11 @@ int			mouse_hook(int button, int x, int y, t_data *img);
 int			mouse_press(int button, int x, int y, t_data *img);
 int			mouse_release(int button, int x, int y, t_data *img);
 int			mouse_move(int x, int y, t_data *img);
-
+int			close_window(t_data *img);
 int			render_frame(t_data *img);
 void		render_mandelbrot(t_data *img);
 void		render_julia(t_data *img);
 void		render_tricorn(t_data *img);
-
 double		map(int value, t_range src, t_range dst);
 double		scale(double value, t_range screen, t_range complex);
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -86,4 +85,6 @@ t_rgb		hsv_to_rgb(double h, double s, double v);
 int			get_shifted_color(int iter, int max_iter, int shift);
 int			get_smooth_color(int iter, int max_iter);
 double		ft_atof(const char *str);
+int			ft_strcmp(const char *s1, const char *s2);
+int			validate_param(const char *flag, const char *value);
 #endif
